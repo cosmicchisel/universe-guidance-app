@@ -1,0 +1,8 @@
+{
+  "name": "THE UNIVERSE GUIDANCE",
+  "description": "An immersive Indian Hindu spiritual app that serves as a daily companion for seekers of cosmic alignment, ritual clarity, and emotional resonance, blending ancient wisdom with modern design.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
