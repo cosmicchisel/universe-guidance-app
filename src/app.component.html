@@ -1,0 +1,161 @@
+<div class="min-h-screen bg-gradient-to-b from-[#131128] to-[#242142] text-slate-200 overflow-x-hidden">
+  <app-voice-assistant [isOpen]="isVoiceAssistantOpen()" (close)="isVoiceAssistantOpen.set(false)"></app-voice-assistant>
+
+  <main class="relative z-10 p-6 pb-28">
+    @switch (page()) {
+      @case ('home') {
+        <div class="flex flex-col h-full gap-6 animate-fadeIn">
+          <header class="flex justify-between items-center">
+            <button class="text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636" /></svg></button>
+            <h1 class="font-serif text-2xl font-bold text-amber-100/90">Cosmic Insights</h1>
+            <button (click)="isVoiceAssistantOpen.set(true)" class="text-slate-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 016 0v8.25a3 3 0 01-3 3z" />
+              </svg>
+            </button>
+          </header>
+          
+          <div (click)="navigateTo('dailyHoroscope')" class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 text-left flex items-center justify-between cursor-pointer animate-slideIn">
+            <div>
+              <h2 class="font-serif text-lg text-amber-200">Your Daily Horoscope</h2>
+              <p class="text-sm text-slate-400">{{horoscopeDateSubheader()}}</p>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-amber-300"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div (click)="navigateTo('palmReading')" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-slate-800 transition-colors animate-scaleUp" style="animation-delay: 100ms;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5c-4.23.9-7.82.0-10-2C-.17 17.5.3 14.2.83 11.5S2 6.5 4 4.5s4-2 6-2 4 .5 6 2.5c2.5 2.5 3.5 5.5 3.5 7.5.55 2.76 1.48 5.48 1.5 6.5a10.8 10.8 0 0 1-3.5 4.5c-2.75 1.5-6 1-8.5 0Z"/><path d="M4 14.5c-1.5 1-2 2-2 3.5"/><path d="M12 12.5a2.5 2.5 0 0 0-5 0v5.5"/><path d="M22 14.5c-1.5 1-2 2-2 3.5"/><path d="M14.5 18.5a2.5 2.5 0 0 0 0-5"/><path d="M8 12.5a2.5 2.5 0 0 0-5 0v5.5"/></svg>
+              <h3 class="font-serif text-lg mt-3 text-amber-200">Palm Reading</h3>
+              <p class="text-xs text-slate-400 mt-1">Unlock secrets in your hand.</p>
+            </div>
+            <div (click)="navigateTo('kundali')" class="bg-slate-800/50 border border-slate-700 rounded-2xl p-5 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-slate-800 transition-colors animate-scaleUp" style="animation-delay: 200ms;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2z"/><path d="M12 12 8 22"/><path d="m12 12 10-4"/><path d="M12 12 2 8"/></svg>
+              <h3 class="font-serif text-lg mt-3 text-amber-200">Kundali Chart</h3>
+              <p class="text-xs text-slate-400 mt-1">Vedic birth chart analysis.</p>
+            </div>
+          </div>
+
+        </div>
+      }
+      @case ('dailyHoroscope') {
+        <div class="animate-fadeIn">
+          <button (click)="goBack()" class="mb-4 text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg></button>
+          <h1 class="font-serif text-3xl font-bold mb-1">Daily Horoscope</h1>
+          <p class="text-slate-400 mb-6">{{horoscopeDateHeader()}}</p>
+          <div class="flex justify-between bg-slate-800/60 rounded-full p-1 mb-6">
+            <button (click)="horoscopeTab.set('love')" class="w-full py-2 rounded-full text-sm font-semibold transition-colors" [class.bg-amber-400/20]="horoscopeTab() === 'love'" [class.text-amber-200]="horoscopeTab() === 'love'">Love</button>
+            <button (click)="horoscopeTab.set('career')" class="w-full py-2 rounded-full text-sm font-semibold transition-colors" [class.bg-amber-400/20]="horoscopeTab() === 'career'" [class.text-amber-200]="horoscopeTab() === 'career'">Career</button>
+            <button (click)="horoscopeTab.set('health')" class="w-full py-2 rounded-full text-sm font-semibold transition-colors" [class.bg-amber-400/20]="horoscopeTab() === 'health'" [class.text-amber-200]="horoscopeTab() === 'health'">Health</button>
+          </div>
+          <div class="space-y-4 text-slate-300 leading-relaxed">
+            <p>Today's cosmic energies are highlighting your romantic sector. If you're single, a chance encounter could lead to something meaningful. For those in a relationship, it's a perfect day to deepen your connection. Open communication will be key to unlocking new levels of intimacy and understanding.</p>
+            <p>Be patient and trust in the universe's timing.</p>
+          </div>
+        </div>
+      }
+      @case ('calendar') {
+        <div class="animate-fadeIn">
+          <button (click)="goBack()" class="mb-4 text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg></button>
+          <div class="flex justify-between items-center mb-6">
+            <h1 class="font-serif text-3xl font-bold">{{monthName()}} {{currentDate().getFullYear()}}</h1>
+            <div class="flex gap-2">
+              <button (click)="prevMonth()" class="p-2 bg-slate-800/60 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg></button>
+              <button (click)="nextMonth()" class="p-2 bg-slate-800/60 rounded-full"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg></button>
+            </div>
+          </div>
+          <div class="grid grid-cols-7 gap-2 text-center text-sm text-slate-400 mb-3">
+            @for(day of weekdays; track day) { <div>{{day}}</div> }
+          </div>
+          <div class="grid grid-cols-7 gap-2 text-center">
+            @for(day of calendarDays(); track $index) {
+              <div class="w-10 h-10 flex items-center justify-center rounded-full" [class.bg-amber-400/20]="day === currentDate().getDate()" [class.text-amber-200]="day === currentDate().getDate()">
+                {{day}}
+              </div>
+            }
+          </div>
+        </div>
+      }
+      @case ('switchWords') {
+        <div class="animate-fadeIn">
+          @if (!selectedSwitchWordCategory()) {
+            <div>
+              <h1 class="font-serif text-3xl font-bold mb-1">Switch Words</h1>
+              <p class="text-slate-400 mb-8">Tap a category to discover words for manifestation.</p>
+              <div class="space-y-4">
+                @for (category of switchWordCategories; track category.name; let i = $index) {
+                  <div (click)="selectedSwitchWordCategory.set(category)" class="bg-slate-800/50 border border-slate-700 rounded-xl p-5 text-left flex items-center justify-between cursor-pointer animate-slideIn" [style.animation-delay]="i * 100 + 'ms'">
+                    <div>
+                      <h2 class="font-serif text-lg text-amber-200">{{ category.name }}</h2>
+                      <p class="text-sm text-slate-400">{{ category.description }}</p>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-amber-300"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+                  </div>
+                }
+              </div>
+            </div>
+          } @else {
+            <div>
+              <button (click)="resetSwitchWordCategory()" class="mb-4 text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg></button>
+              <h1 class="font-serif text-3xl font-bold mb-1">{{ selectedSwitchWordCategory()?.name }}</h1>
+              <p class="text-slate-400 mb-8">{{ selectedSwitchWordCategory()?.description }}</p>
+              <div class="space-y-3">
+                @for (word of selectedSwitchWordCategory()?.words; track word.word) {
+                  <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-amber-200 uppercase tracking-widest">{{ word.word }}</h3>
+                    <p class="text-slate-300">{{ word.purpose }}</p>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+      @case ('emotions') {
+        <div class="animate-fadeIn">
+          <button (click)="goBack()" class="mb-4 text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg></button>
+          <h1 class="font-serif text-3xl font-bold mb-6">How are you feeling?</h1>
+          <div class="grid grid-cols-2 gap-4">
+            @for (card of emotionCards; track card.title) {
+              <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 aspect-square flex flex-col justify-end">
+                <h3 class="font-serif text-lg text-amber-200">{{card.title}}</h3>
+                <p class="text-sm text-slate-400">{{card.subtitle}}</p>
+              </div>
+            }
+          </div>
+        </div>
+      }
+      @case ('more') {
+        <div class="animate-fadeIn">
+           <button (click)="goBack()" class="mb-4 text-slate-300"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg></button>
+          <h1 class="font-serif text-3xl font-bold mb-6">More Options</h1>
+          <div class="flex flex-col">
+            @for(link of moreLinks; track link) {
+              <a href="#" class="flex justify-between items-center py-4 border-b border-slate-700 text-slate-300">
+                <span>{{link}}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-slate-500"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
+              </a>
+            }
+          </div>
+        </div>
+      }
+      @case ('palmReading') {
+        <app-palm-reading [goBack]="goBack.bind(this)" />
+      }
+      @case ('kundali') {
+        <app-kundali [goBack]="goBack.bind(this)" />
+      }
+    }
+  </main>
+
+  <footer class="fixed bottom-0 left-0 right-0 z-20 bg-slate-900/50 backdrop-blur-md border-t border-slate-800">
+    <nav class="flex justify-around items-center p-2">
+      @for(item of navItems; track item.id) {
+        <button (click)="navigateTo(item.id)" class="flex flex-col items-center gap-1 p-2 rounded-lg transition-colors" [class.text-amber-300]="page() === item.id" [class.text-slate-400]="page() !== item.id">
+          <div [innerHTML]="item.icon"></div>
+          <span class="text-xs">{{item.label}}</span>
+        </button>
+      }
+    </nav>
+  </footer>
+        </div>
